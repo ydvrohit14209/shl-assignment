@@ -43,7 +43,13 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="SHL Assessment Recommender", version="1.0.0", lifespan=lifespan)
 
-
+@app.get("/")
+def home():
+    return {
+        "message": "Welcome to SHL Assessment Recommender API",
+        "docs": "/docs",
+        "health": "/health"
+    }
 @app.get("/health", response_model=HealthResponse)
 def health():
     if _index is None or _agent is None:
